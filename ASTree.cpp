@@ -1162,6 +1162,8 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 curblock = blocks.top();
             }
             break;
+        case Pyc::JUMP_BACKWARD_A:
+        case Pyc::JUMP_BACKWARD_NO_INTERRUPT_A:
         case Pyc::JUMP_ABSOLUTE_A:
             {
                 int offs = operand;
@@ -1275,8 +1277,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 curblock = blocks.top();
             }
             break;
-        //case Pyc::JUMP_BACKWARD_A:
-        //case Pyc::JUMP_BACKWARD_NO_INTERRUPT_A:
+        
         case Pyc::JUMP_FORWARD_A:
         case Pyc::INSTRUMENTED_JUMP_FORWARD_A:
             {
@@ -2476,6 +2477,13 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
             }
             break;
          case Pyc::DICT_UPDATE_A:
+               {
+                PycRef<ASTNode> d = stack.top();
+                stack.pop();
+                PycRef<ASTMap> map = stack.top().cast<ASTMap>();
+                map->update(d);
+            }
+            break; 
          case Pyc::MAP_ADD_A:
             {
                 PycRef<ASTNode> key = stack.top();
