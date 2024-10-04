@@ -2518,6 +2518,12 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 PycRef<ASTNode> st2 = stack.top();
                 stack.push(NULL); //true false
             }
+            break;
+         case Pyc::RERAISE:
+               {
+                PycRef<ASTNode> st3 = stack.top();
+                //stack.pop();  
+            }
             break; 
           default:
             fprintf(stderr, "Unsupported opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
