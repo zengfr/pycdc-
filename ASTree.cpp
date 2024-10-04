@@ -1275,7 +1275,9 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 curblock = blocks.top();
             }
             break;
-        case Pyc::JUMP_FORWARD_A:
+        case Pyc::JUMP_BACKWARD_A:
+        case Pyc::JUMP_BACKWARD_NO_INTERRUPT_A:
+                case Pyc::JUMP_FORWARD_A:
         case Pyc::INSTRUMENTED_JUMP_FORWARD_A:
             {
                 int offs = operand;
@@ -2473,6 +2475,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 stack.push(next_tup);
             }
             break;
+         case Pyc::DICT_UPDATE_A:
          case Pyc::MAP_ADD_A:
             {
                 PycRef<ASTNode> key = stack.top();
@@ -2863,7 +2866,7 @@ void print_src(PycRef<ASTNode> node, PycModule* mod, std::ostream& pyc_output)
                     pyc_output << ",\n";
                 start_line(cur_indent, pyc_output);
                 print_src(val.first, mod, pyc_output);
-                pyc_output << ": ";
+                pyc_output << ": "; 
                 print_src(val.second, mod, pyc_output);
                 first = false;
             }
