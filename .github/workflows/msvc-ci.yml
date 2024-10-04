@@ -30,19 +30,21 @@ jobs:
         with:
           name: pycdc-release
           path: build\Release\*.tgz
-      - name: Release
+      - name: Create Release
+        id: create_release
         uses: actions/create-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{steps.version.outputs.value}}
-          release_name: v${{steps.version.outputs.value}}
-          body: Release v${{steps.version.outputs.value}}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: Release ${{ github.ref }}
           draft: false
           prerelease: false
       - name: Upload Release
         uses: actions/upload-release-asset@master
         with:
-          upload_url: https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${{ steps.get_release.outputs.release_id }}/assets
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build\Release\*.*
           asset_name: release.tgz
+          asset_content_type: application/zip
