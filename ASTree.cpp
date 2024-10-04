@@ -2480,8 +2480,8 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                {
                 PycRef<ASTNode> d = stack.top();
                 stack.pop();
-                PycRef<ASTMap> map = stack.top().cast<ASTMap>();
-                map->update(d);
+                //PycRef<ASTMap> map = stack.top().cast<ASTMap>();
+                //map->update(d);
             }
             break; 
          case Pyc::MAP_ADD_A:
