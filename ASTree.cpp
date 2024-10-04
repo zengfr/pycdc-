@@ -2497,9 +2497,9 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
          case Pyc::END_SEND:
          case Pyc::END_FOR:
                {
-                PycRef<ASTNode> d = stack.top();
+                PycRef<ASTNode> ddd2 = stack.top();
                 stack.pop();
-                PycRef<ASTNode> d = stack.top();
+                PycRef<ASTNode> ddd3 = stack.top();
                 stack.pop();
             }
             break; 
