@@ -2494,6 +2494,14 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 map->add(key, value);
             }
             break;
+         case Pyc::END_FOR:
+               {
+                PycRef<ASTNode> d = stack.top();
+                stack.pop();
+                PycRef<ASTNode> d = stack.top();
+                stack.pop();
+            }
+            break; 
         default:
             fprintf(stderr, "Unsupported opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
              cleanBuild = true;
