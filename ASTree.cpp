@@ -2516,7 +2516,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 PycRef<ASTNode> st1 = stack.top();
                 stack.pop(); 
                 PycRef<ASTNode> st2 = stack.top();
-                stack.push(st1==st2); //false
+                stack.push(NULL); //true false
             }
             break; 
           default:
