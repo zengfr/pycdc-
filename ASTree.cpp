@@ -158,7 +158,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 CheckIfExpr(stack, curblock);
             }
         }
-
+        fprintf(stderr, "opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
         switch (opcode) {
         case Pyc::BINARY_OP_A:
             {
@@ -2471,6 +2471,16 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 next_tup->setRequireParens(false);
                 stack.push(tup);
                 stack.push(next_tup);
+            }
+            break;
+         case Pyc::MAP_ADD_A:
+            {
+                PycRef<ASTNode> key = stack.top();
+                stack.pop();
+                PycRef<ASTNode> value = stack.top();
+                stack.pop();
+                PycRef<ASTMap> map = stack.top().cast<ASTMap>();
+                map->add(key, value);
             }
             break;
         default:
