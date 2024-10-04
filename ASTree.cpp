@@ -2511,7 +2511,15 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 stack.push(ddd4);
             }
             break; 
-        default:
+         case Pyc::CHECK_EXC_MATCH:
+               {
+                PycRef<ASTNode> st1 = stack.top();
+                stack.pop(); 
+                PycRef<ASTNode> st2 = stack.top();
+                stack.push(st1==st2); //false
+            }
+            break; 
+          default:
             fprintf(stderr, "Unsupported opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
              cleanBuild = true;
              return new ASTNodeList(defblock->nodes());
