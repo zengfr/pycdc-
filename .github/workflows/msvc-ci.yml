@@ -18,7 +18,7 @@ jobs:
           cmake --build . --config Debug
           cmake --build . --config Release
           cd ./Release/
-          tar -zcvf ${{ secrets.ReleaseZipName }} ./*.exe ./*.lib
+          tar -zcvf v${{secrets.ReleaseZipName}} ./*.exe ./*.lib
 
       - name: Test
         run: |
@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pycdc-release
-          path: build\Release\*.tgz
+          path: build\Release\v${{ secrets.ReleaseZipName }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -48,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/Release/${{ secrets.ReleaseZipName }}.zip
-          asset_name: ${{ secrets.ReleaseZipName }}.zip
+          asset_path: ./build/Release/v${{ secrets.ReleaseZipName }}.zip
+          asset_name: v${{ secrets.ReleaseZipName }}.zip
           asset_content_type: application/zip
