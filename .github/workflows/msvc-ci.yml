@@ -18,18 +18,18 @@ jobs:
           cmake --build . --config Debug
           cmake --build . --config Release
           cd ./Release/
-          tar -zcvf v${{secrets.ReleaseZipName}}.zip ./*.exe ./*.lib
+          tar -zcvf v${{ github.run_id }}.zip ./*.exe ./*.lib
 
       - name: Test
         run: |
           cmake --build build --config Debug --target check
           cmake --build build --config Release --target check
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: pycdc-release
-          path: build\Release\v${{ secrets.ReleaseZipName }}.zip
+      #- name: Upload artifact
+        #uses: actions/upload-artifact@v3
+        #with:
+          #name: pycdc-release
+          #path: build\Release\v${{ github.run_id }}.zip
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -38,8 +38,8 @@ jobs:
         with:
           tag_name: v${{ github.run_id }}
           name: v${{ github.run_id }}
-          release_name: ${{ github.ref }}
-          body: Release ${{ github.ref }}
+          release_name: v${{ github.run_id }}
+          body: Release v${{ github.run_id }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
@@ -48,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/Release/v${{ secrets.ReleaseZipName }}.zip
-          asset_name: v${{ secrets.ReleaseZipName }}.zip
+          asset_path: ./build/Release/v${{ github.run_id }}.zip
+          asset_name: v${{ github.run_id }}.zip
           asset_content_type: application/zip
