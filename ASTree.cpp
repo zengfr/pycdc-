@@ -1275,9 +1275,9 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 curblock = blocks.top();
             }
             break;
-        case Pyc::JUMP_BACKWARD_A:
-        case Pyc::JUMP_BACKWARD_NO_INTERRUPT_A:
-                case Pyc::JUMP_FORWARD_A:
+        //case Pyc::JUMP_BACKWARD_A:
+        //case Pyc::JUMP_BACKWARD_NO_INTERRUPT_A:
+        case Pyc::JUMP_FORWARD_A:
         case Pyc::INSTRUMENTED_JUMP_FORWARD_A:
             {
                 int offs = operand;
