@@ -2519,10 +2519,10 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 stack.push(NULL); //true false
             }
             break;
-         case Pyc::RERAISE:
+         case Pyc::RERAISE_A:
                {
                 PycRef<ASTNode> st3 = stack.top();
-                //stack.pop();  
+                stack.pop();  
             }
             break; 
           default:
