@@ -158,7 +158,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 CheckIfExpr(stack, curblock);
             }
         }
-        #fprintf(stderr, "opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
+        //fprintf(stderr, "opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
         switch (opcode) {
         case Pyc::BINARY_OP_A:
             {
