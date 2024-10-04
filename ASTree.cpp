@@ -2503,7 +2503,14 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 stack.pop();
             }
             break; 
-        
+         case Pyc::PUSH_EXC_INFO:
+               {
+                PycRef<ASTNode> ddd4 = stack.top();
+                stack.pop(); 
+                stack.push(NULL);
+                stack.push(ddd4);
+            }
+            break; 
         default:
             fprintf(stderr, "Unsupported opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
              cleanBuild = true;
