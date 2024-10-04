@@ -46,6 +46,6 @@ jobs:
         uses: actions/upload-release-asset@master
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build\Release\*.*
+          asset_path: build\Release\release.tgz
           asset_name: release.tgz
           asset_content_type: application/zip
