@@ -2478,7 +2478,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
             break;
          case Pyc::DICT_UPDATE_A:
                {
-                PycRef<ASTNode> d = stack.top();
+                PycRef<ASTNode> ddd = stack.top();
                 stack.pop();
                 //PycRef<ASTMap> map = stack.top().cast<ASTMap>();
                 //map->update(d);
@@ -2494,6 +2494,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 map->add(key, value);
             }
             break;
+         case Pyc::END_SEND:
          case Pyc::END_FOR:
                {
                 PycRef<ASTNode> d = stack.top();
@@ -2502,6 +2503,7 @@ PycRef<ASTNode> BuildFromCode(PycRef<PycCode> code, PycModule* mod)
                 stack.pop();
             }
             break; 
+        
         default:
             fprintf(stderr, "Unsupported opcode: %s\n", Pyc::OpcodeName(opcode & 0xFF));
              cleanBuild = true;
